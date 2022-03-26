@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="我是按钮"
+        android:onClick="login"/>
+
+    <Button
+        android:id="@+id/btn2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/select_login_btn"/>
+    
+    <EditText
+        android:id="@+id/et01"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="提示内容"
+        android:text="输入的内容"
+        android:textColorHint="@android:color/holo_orange_dark"
+        android:inputType="textPassword"
+        ></EditText>
+
+
+    <EditText
+        android:id="@+id/et02"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="提示内容"
+        android:text="输入的内容"
+        android:textColorHint="@android:color/holo_orange_dark"
+        android:inputType="text"
+        ></EditText>
+
+    <!--background会占满整个ImageView
+    src宽或者高必须同时缩放，以最小的缩放为准-->
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@mipmap/ic_launcher"
+        />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/ic_launcher"
+        />
+
+
+
+    <RadioGroup
+        android:id="@+id/rg"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+        <RadioButton
+            android:id="@+id/male"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="男"/>
+
+        <RadioButton
+            android:id="@+id/female"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="女"/>
+
+    </RadioGroup>
+</LinearLayout>
