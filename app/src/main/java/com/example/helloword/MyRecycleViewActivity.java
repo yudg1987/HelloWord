@@ -1,5 +1,6 @@
 package com.example.helloword;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -10,6 +11,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.helloword.model.User;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,7 +21,7 @@ public class MyRecycleViewActivity extends AppCompatActivity {
     private RecyclerView mRecycleView;
     private MyRecycleViewAdapter mAdapter;//适配器
     private LinearLayoutManager mLinearLayoutManager;//布局管理器
-    private List<String> mList;
+    private List mList;
 
     public MyRecycleViewActivity() {
         super();
@@ -42,6 +45,18 @@ public class MyRecycleViewActivity extends AppCompatActivity {
         mRecycleView.setLayoutManager(mLinearLayoutManager);
         //设置适配器adapter
         mRecycleView.setAdapter(mAdapter);
+
+        //接收Lifecycle传来的值
+        Intent it=getIntent();
+        int x=it.getIntExtra("x",0);
+        String url=it.getStringExtra("url");
+        Log.i("x",x+"");
+        Log.i("url",url);
+
+        //接收自定义传值：对象
+        User user=(User)it.getSerializableExtra("user");
+        Log.i("user",user.toString());
+
 
     }
 
@@ -82,7 +97,7 @@ public class MyRecycleViewActivity extends AppCompatActivity {
     }
 
     public static class MyRecycleViewAdapter extends RecyclerView.Adapter<MyRecycleViewAdapter.MyHolder> {
-        private List<String> mList;//数据源
+        private List mList;//数据源
 
         MyRecycleViewAdapter(List<String> list) {
             mList = list;

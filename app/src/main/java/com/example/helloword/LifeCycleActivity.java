@@ -6,6 +6,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 
+import com.example.helloword.model.User;
+
 public class LifeCycleActivity extends AppCompatActivity {
 
 
@@ -22,11 +24,27 @@ public class LifeCycleActivity extends AppCompatActivity {
     }
 
     public void tiao(View v) {
+        String url="http://36.7.109.47:8801/lhjf/h5/index.html#/pages/login/index";
         Log.i("LifeCycleActivity", "按钮被点击了");
         Intent it = new Intent();
         it.setClass(LifeCycleActivity.this, MyRecycleViewActivity.class);
+        it.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        it.putExtra("url", url);
+
+        //使用Bundle传递数据
+        Bundle bundle=new Bundle();
+        bundle.putInt("x",100);
+        it.putExtras(bundle);
+
+        //自定义传值：使用对象
+        User user=new User("张三","123456",20);
+        it.putExtra("user",user);
+
+
         //执行跳转 很关键
         startActivity(it);
+
+
     }
 
     @Override
