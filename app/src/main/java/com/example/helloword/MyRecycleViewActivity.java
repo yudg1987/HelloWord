@@ -57,12 +57,22 @@ public class MyRecycleViewActivity extends AppCompatActivity {
         User user=(User)it.getSerializableExtra("user");
         Log.i("user",user.toString());
 
+        //
+    }
 
+    public void back(View v){
+        Intent it=new Intent();
+        it.putExtra("msg","这是从MyRecycleViewActivity带回来的数据");
+        setResult(200,it);
+        finish();
     }
 
     public void initData(List list) {
         for (int i = 1; i <= 40; i++) {
-            list.add("第" + i + "条数据");
+            //list.add("第" + i + "条数据");
+
+            User user=new User("张三","123456",20);
+            list.add(user);
         }
     }
 
@@ -99,7 +109,7 @@ public class MyRecycleViewActivity extends AppCompatActivity {
     public static class MyRecycleViewAdapter extends RecyclerView.Adapter<MyRecycleViewAdapter.MyHolder> {
         private List mList;//数据源
 
-        MyRecycleViewAdapter(List<String> list) {
+        MyRecycleViewAdapter(List list) {
             mList = list;
         }
 
@@ -118,7 +128,9 @@ public class MyRecycleViewActivity extends AppCompatActivity {
         //通过方法提供的ViewHolder，将数据绑定到ViewHolder中
         @Override
         public void onBindViewHolder(MyHolder holder, int position) {
-            holder.textView.setText(mList.get(position).toString());
+           User user= (User)mList.get(position);
+            holder.textView.setText("姓名:"+user.getUsername()+",密码："+user.getPassword()+",年龄："+user.getAge());
+            //holder.textView.setText(mList.get(position).toString());
         }
 
         //获取数据源总的条数

@@ -2,6 +2,7 @@ package com.example.helloword;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -28,7 +29,12 @@ public class LifeCycleActivity extends AppCompatActivity {
         Log.i("LifeCycleActivity", "按钮被点击了");
         Intent it = new Intent();
         it.setClass(LifeCycleActivity.this, MyRecycleViewActivity.class);
-        it.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        //addFlags此属性设置后有坑：startActivityForResult() 后直接调用 onActivityResult()，返回后不执行
+        //这与 Activity 的加载模式（launchMode）有关，该属性可以在 AndroidManifest.xml 中设置
+        //原先将其设为 launchmode="SingleTask"，经测试，所有需要传递或接收的 Activity 不允许设置该属性
+        //或只能设为标准模式，否则系统将在 startActivityForResult() 后直接调用 onActivityResult()
+        //https://blog.csdn.net/sbvfhp/article/details/26858441?_t=t
+        //it.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         it.putExtra("url", url);
 
         //使用Bundle传递数据
@@ -39,12 +45,23 @@ public class LifeCycleActivity extends AppCompatActivity {
         //自定义传值：使用对象
         User user=new User("张三","123456",20);
         it.putExtra("user",user);
-
-
         //执行跳转 很关键
-        startActivity(it);
+        //startActivity(it);
 
+        //MyRecycleViewActivity返回来的数据 重写了onActivityResult方法
+        startActivityForResult(it,100);
+    }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        Log.i("LifeCycleActivity","onActivityResult");
+        switch (requestCode){
+            case 100:
+                String msg=null == data ? null:data.getStringExtra("msg");
+                Log.i("LifeCycleActivity.requestCode","requestCode:"+requestCode+"，resultCode:"+resultCode+",Intent.data:"+msg);
+                break;
+        }
     }
 
     @Override
